@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./apps/python-backend
+      dockerfile: Dockerfile
+      cache_from:
+        - python:3.11-slim
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/python-backend/images:/app/images
+      - ./apps/python-backend/embeddings:/app/embeddings
+      - clip_models_cache:/root/.cache/clip
+      - pip_cache:/root/.cache/pip
+    networks:
+      - app-network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./apps/web/dockerfile
+      args:
+        - BACKEND_URL=http://backend:8000
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  clip_models_cache:
+    driver: local
+  pip_cache:
+    driver: local

@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.idea
+.vscode
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Development
+*.tmp
+*.temp
+.pytest_cache
+.mypy_cache
+
+# Images and embeddings (these should be mounted volumes)
+images/*
+embeddings/*
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Docker
+Dockerfile*
+docker-compose.yml
+.dockerignore

@@ -12,9 +12,7 @@ This project combines a modern Next.js frontend with a FastAPI backend powered b
 
 ### 🎥 Demo
 
-*Place your demo images/videos here*
-
-![Demo Screenshot Placeholder](./demo-screenshot.png)
+Uploading Image Search - Google Chrome 2025-07-08 21-04-35.mp4…
 
 ### 🏗️ Architecture
 

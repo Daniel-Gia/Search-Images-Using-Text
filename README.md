@@ -11,9 +11,7 @@ This project combines a modern Next.js frontend with a FastAPI backend powered b
 - View results in a clean, responsive grid layout
 
 ### 🎥 Demo
-
-Uploading Image Search - Google Chrome 2025-07-08 21-04-35.mp4…
-
+https://github.com/user-attachments/assets/e1d8de00-8b79-4c45-9e3a-44ebe58a4a2e
 ### 🏗️ Architecture
 
 - **Frontend**: Next.js 15 with React 19, TailwindCSS, and TypeScript

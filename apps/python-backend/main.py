@@ -7,7 +7,7 @@ import uuid
 import urllib.parse
 
 # ───── CONFIG ────────────────────────────────────────────────────────
-IMAGE_DIR = os.getenv("IMAGE_DIR", "images")  # folder where your image files live
+IMAGE_DIR = os.getenv("IMAGE_DIR", "./images")  # folder where your image files live
 # ────────────────────────────────────────────────────────────────────
 
 app = FastAPI()
@@ -20,6 +20,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Ensure IMAGE_DIR exists at startup
+os.makedirs(IMAGE_DIR, exist_ok=True)
 
 # Mount static files to serve images directly
 app.mount("/images", StaticFiles(directory=IMAGE_DIR), name="images")
@@ -77,16 +80,27 @@ async def upload_image(file: UploadFile = File(...)):
     # Generate a unique filename to avoid conflicts
     file_extension = os.path.splitext(file.filename)[1]
     unique_filename = f"{uuid.uuid4()}{file_extension}"
-    file_path = os.path.join(IMAGE_DIR, unique_filename)
+    
+    # Convert IMAGE_DIR to absolute path to ensure it works on Windows
+    absolute_image_dir = os.path.abspath(IMAGE_DIR)
+    file_path = os.path.join(absolute_image_dir, unique_filename)
     
     # Ensure the images directory exists
-    os.makedirs(IMAGE_DIR, exist_ok=True)
+    os.makedirs(absolute_image_dir, exist_ok=True)
     
     try:
         # Save the uploaded file
         with open(file_path, "wb") as buffer:
             content = await file.read()
             buffer.write(content)
+        
+        # Add the image to the Model_Backend database for search functionality
+        try:
+            Model_Backend.add_image(file_path)
+            print(f"✅ Image added to search database: {unique_filename}")
+        except Exception as e:
+            print(f"⚠️ Failed to add image to search database: {str(e)}")
+            # Don't fail the upload if database addition fails
         
         return {
             "message": "Image uploaded successfully",

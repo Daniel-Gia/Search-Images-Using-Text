@@ -1,6 +1,6 @@
 # Image Search Project
 
-An intelligent image search application that uses AI-powered embeddings to find similar images. Upload images and search through your collection using natural language descriptions or by uploading reference images.
+An intelligent image search application that uses AI-powered embeddings to find images. Upload images and search through your collection using natural language descriptions or by uploading reference images.
 
 ## About This Project
 
@@ -32,6 +32,8 @@ This is the easiest way to get the project running. Docker will handle all depen
 1. **Build and run with Docker Compose**
    ```bash
    docker-compose build
+   ```
+   ```bash
    docker-compose up
    ```
    
@@ -77,9 +79,13 @@ npm install
 2. **Run with one of the methods**
 ```bash
 npm run build   # Build everything (backend and frontend)
-npm run start   # Start production servers
+```
 
-# For development mode (hot reload, etc.)
+```bash
+npm run start   # Start production servers
+```
+**OR** For development mode (hot reload, etc.):
+```bash
 npm run dev     # Start both backend and frontend in development mode
 ```
 

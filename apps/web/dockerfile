@@ -26,6 +26,12 @@ ENV BACKEND_URL=$BACKEND_URL
 # Ensure standalone output for Next.js
 ENV NEXT_PRIVATE_STANDALONE=true
 
+# Force npm usage instead of yarn and disable auto package installation
+ENV YARN_IGNORE_NODE=1
+ENV COREPACK_ENABLE_STRICT=0
+ENV DISABLE_AUTOINSTALL=1
+ENV NPM_CONFIG_IGNORE_SCRIPTS=false
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.

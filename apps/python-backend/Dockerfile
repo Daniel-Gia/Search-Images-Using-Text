@@ -36,6 +36,9 @@ RUN mkdir -p /root/.cache/pip /root/.cache/clip
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install --user --upgrade pip wheel
 
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install --user packaging>=21.0 setuptools>=65.0
+
 # Install dependencies in optimal order (use cached wheels when possible)
 # FastAPI and related (fast installs)
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -44,25 +47,25 @@ RUN --mount=type=cache,target=/root/.cache/pip \
         uvicorn[standard]==0.24.0 \
         python-multipart==0.0.20
 
-# NumPy (use newer version for Python 3.12 compatibility)
+# NumPy (exact version for Python 3.12 compatibility)
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install --user "numpy>=1.26.0"
+    pip3 install --user "numpy==1.26.4"
 
-# Pillow (use newer version for Python 3.12 compatibility)
+# Pillow (exact version for Python 3.12 compatibility)
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install --user "Pillow>=10.1.0"
+    pip3 install --user "Pillow==10.4.0"
 
-# PyTorch CPU-only (Python 3.12 compatible)
+# PyTorch CPU-only (exact versions for Python 3.12 compatibility)
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install --user \
         --index-url https://download.pytorch.org/whl/cpu \
-        "torch>=2.2.0+cpu" "torchvision>=0.17.0+cpu"
+        "torch==2.4.1+cpu" "torchvision==0.19.1+cpu"
 
-# CLIP package (more up-to-date)
+# CLIP package dependencies (exact versions)
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install --user ftfy regex tqdm
+    pip3 install --user ftfy==6.2.3 regex==2024.7.24 tqdm==4.66.5
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install --user openai-clip
+    pip3 install --user openai-clip==1.0.1
 
 # Production stage
 FROM base

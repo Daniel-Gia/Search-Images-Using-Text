@@ -63,3 +63,7 @@ pids
 # Temporary folders
 tmp/
 temp/
+
+
+apps/python-backend/embeddings/
+apps/python-backend/images/

@@ -1,18 +1,19 @@
-# Optimized requirements with specific versions for better caching
 fastapi==0.104.1
-numpy>=1.26.0
+numpy==1.26.4
 uvicorn[standard]==0.24.0
-Pillow>=10.1.0
+Pillow==10.4.0
 python-multipart==0.0.20
+packaging>=21.0
+setuptools>=65.0
 
 # PyTorch CPU-only for faster builds (CLIP dependency) - Python 3.12 compatible
-torch>=2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu
-torchvision>=0.17.0+cpu --index-url https://download.pytorch.org/whl/cpu
+torch==2.4.1+cpu --index-url https://download.pytorch.org/whl/cpu
+torchvision==0.19.1+cpu --index-url https://download.pytorch.org/whl/cpu
 
 # CLIP dependencies
-ftfy
-regex
-tqdm
+ftfy==6.2.3
+regex==2024.7.24
+tqdm==4.66.5
 
 # Use openai-clip package instead (more up-to-date)
-openai-clip
+openai-clip==1.0.1
